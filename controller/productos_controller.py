@@ -17,13 +17,13 @@ class Productos_controller:
                     Almacen de Productos
                 ============================
                 ''')
-                menu = [ 'Buscar productos', 'Ingresar productos', 'Mantenimiento Categoria Productos', "Salir"]
+                menu = [ 'Listar productos', 'Buscar productos', 'Mantenimiento Categoria Productos', "Salir"]
                 respuesta = Menu(menu).show()
                 
                 if respuesta == 1:
-                    self.buscar_productos()  
+                    self.listar_productos()  
                 elif respuesta == 2:
-                    self.insertar_producto()
+                    self.buscar_productos()
                 elif respuesta == 3:
                     self.categoria_controller.menu()         
                 else:
