@@ -21,7 +21,7 @@ class Almacen_controller:
                 if respuesta == 1:
                     self.productos_controller.insertar_producto()
                 elif respuesta == 2:
-                    self.productos_controller.buscar_productos()                
+                    self.productos_controller.menu()                
                 else:
                     self.salir = True
                     break

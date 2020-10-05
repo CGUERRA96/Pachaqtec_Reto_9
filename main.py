@@ -4,7 +4,6 @@ import pprint
 
 def iniciar_app():
 
-
     try:
         print('''
         =======================
@@ -15,24 +14,15 @@ def iniciar_app():
         respuesta = Menu(menu_principal).show()        
         
         if respuesta == 1:
-            
             login = Login_controller()
             login.logeo()
             if login.salir:
                 iniciar_app()
 
-        elif respuesta == 2:
-            
-            pass
-
-        elif respuesta == 3:
-            
-            pass
-
         print("\nGracias por utilizar nuestro market\n")
     except KeyboardInterrupt:
         print('\n Se interrumpio la aplicación')
-    except Exception as e:
+    except ValueError as e:
         print(f'{str(e)}')
 
 iniciar_app()
