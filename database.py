@@ -8,7 +8,7 @@ class Database:
         create_table_query = '''
             CREATE TABLE IF NOT EXISTS  personas(
                 id_persona  SERIAL PRIMARY KEY NOT NULL,
-                id_empresa_rel int NOT NULL,
+                id_empresa_rel bigint NOT NULL,
                 dni_persona varchar(8) NOT NULL,
                 nombres varchar(100) NOT NULL,
                 apellidos varchar(50) NOT NULL,
