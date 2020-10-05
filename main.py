@@ -2,7 +2,6 @@ from controller.login_controller import Login_controller
 from helpers.menu import Menu
 import pprint
 
-
 def iniciar_app():
 
 
@@ -30,7 +29,7 @@ def iniciar_app():
             
             pass
 
-        print("\nGracias por utilizar nuestro sistema bibliotecario\n")
+        print("\nGracias por utilizar nuestro market\n")
     except KeyboardInterrupt:
         print('\n Se interrumpio la aplicación')
     except Exception as e:
