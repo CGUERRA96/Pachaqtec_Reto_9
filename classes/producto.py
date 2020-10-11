@@ -14,7 +14,7 @@ class Productos:
         return self.model.get_all(order)
 
     def buscar_productos(self, data_productos):
-        return self.model.get_by_column(data_productos)
+        return self.model.get_by_column_like(data_productos)
 
     def modificar_productos(self, id_productos, data_productos):
         return self.model.update(id_productos, data_productos)

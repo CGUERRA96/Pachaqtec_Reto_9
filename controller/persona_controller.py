@@ -1,6 +1,7 @@
 from classes.persona import Persona
 from classes.empresa import Empresa
-from classes.tipo_rol import Tipo_Rol
+from classes.tipo_rol import Tipo_rol
+from controller.empresa_controller import Empresa_controller
 from helpers.helper import input_data, print_table, pregunta
 from helpers.menu import Menu
 
@@ -8,7 +9,8 @@ class Persona_controller:
     def __init__(self):
         self.persona = Persona()
         self.empresa = Empresa()
-        self.tipo_rol = Tipo_Rol()
+        self.tipo_rol = Tipo_rol()
+        self.empresa_controller =  Empresa_controller()
         self.salir = False
 
     def menu(self):
@@ -23,9 +25,12 @@ class Persona_controller:
                 respuesta = Menu(menu).show()
                 
                 if respuesta == 1:
-                    pass
+                    self.listar_personas()
                 elif respuesta == 2:
-                    pass                
+                    self.inscribir_personas()
+                elif respuesta == 3:
+                    pass
+                    #self.buscar_personas()  
                 else:
                     self.salir = True
                     break
@@ -40,8 +45,70 @@ class Persona_controller:
         ''')
         #personas_adm = self.persona.obtener_personas('id_persona')
         persona = self.persona.obtener_personas('id_persona')
-        print(print_table(persona, ['ID', 'ID Empresa', 'DNI', 'Nombre', 'Apellidos', 'Email', 'Telefono', 'Direccion', 'id_tipo_rol', 'Usuario','Password']))
-        input("\nPresione una tecla para continuar...")
+        #print(print_table(persona, ['ID', 'ID Empresa', 'DNI', 'Nombre', 'Apellidos', 'Email', 'Telefono', 'Direccion', 'id_tipo_rol', 'Usuario','Password']))
+        #input("\nPresione una tecla para continuar...")
+        
+        view_persona = []
+
+        for p in persona:
+            id_persona = p[0]
+            id_empresa_rel = p[1]
+            dni  = p[2]
+            nombre  = p[3]
+            apellidos = p[4]
+            correo = p[5]
+            telefono = p[6]
+            direccion = p[7]
+            id_tipo_rol_rel = p[8]
+            usuario = p[9]
+            password  = p[10]
+
+            view_empresa = []
+            empresa = self.empresa.obtener_empresas('id_empresa')
+            for e in empresa:
+                id_empresa = e[0]
+                ruc = e[1]
+                nombre_empresa = e[2]
+                direccion = e[3]
+
+                if id_empresa_rel == id_empresa:
+                    nombre_empresa = nombre_empresa
+
+                view_empresa.append({
+                    'id_empresa' : id_empresa,
+                    'ruc' : ruc,
+                    'nombre_empresa' : nombre_empresa,
+                    'direccion' : direccion
+                })
+                
+                view_tipo_rol = []
+                tipo_rol = self.tipo_rol.obtener_tipo_roles('id_tipo_rol')
+                for t in tipo_rol:
+                    id_tipo_rol = t[0]
+                    tipo_rol = t[1]
+
+                    if id_tipo_rol_rel == id_tipo_rol:
+                        descripcion = tipo_rol
+
+                    view_tipo_rol.append({
+                    'id_tipo_rol' : id_tipo_rol,
+                    'tipo_rol' : tipo_rol
+                    })
+
+            view_persona.append({
+                'id_persona' : id_persona,
+                'nombre_empresa' : nombre_empresa,
+                'dni'  : dni,
+                'nombre'  : nombre,
+                'apellidos' : apellidos,
+                'correo' : correo,
+                'telefono' : telefono,
+                'direccion' : direccion,
+                'tipo_rol' : descripcion,
+                'usuario' : usuario,
+                'password'  : password
+            })
+        print(print_table(view_persona))
 
     def listar_administradores(self):
         #Buscar administradores (filtro administrador rol)
@@ -81,6 +148,7 @@ class Persona_controller:
 
     def inscribir_personas(self):
         #Ingresa persona y coloca su rol (1: Administrador y 2: Lector)
+        self.empresa_controller.listar_empresa()
         id_empresa_rel = input_data("Ingrese el ID empresa >> ", "int")
         dni = input_data("Ingrese el nuevo DNI >> ")
         nombre = input_data("Ingrese el nuevo nombre >> ")
@@ -88,6 +156,8 @@ class Persona_controller:
         correo = input_data("Ingrese el nuevo correo >> ")
         telefono = input_data("Ingrese el nuevo telefono >> ")
         direccion = input_data("Ingrese la nueva direccion >> ")
+        roles = self.tipo_rol.obtener_tipo_roles('id_tipo_rol')
+        print(print_table(roles,['ID', 'Tipo Rol1']))
         id_tipo_rol = input_data("Ingrese el ID rol >> ", "int")
         usuario = input_data("Ingrese un usuario >> ")
         password = input_data("Ingresar un password >> ")
@@ -121,22 +191,13 @@ class Persona_controller:
         empresa = self.empresa.obtener_empresas('id_empresa')
         if not empresa:
             list_empresa = []
-            #for v in empresa:
-            #    id_empresa = v[0],
-            #    ruc = v[1],
-            #    nombre_empresa = v[2],
-            #    direccion = v[3]
-            #
+
             list_empresa.append({
                 'ruc' : 101010,
                 'nombre_empresa' : 'Market S.A.',
                 'direccion' : 'Lima'
             })
-            #print(list_empresa[0]['ruc'])
-            #    
-            #list_empresa[1] = 101010101010,
-            #list_empresa[2] = 'Market S.A.',
-            #list_empresa[3] = 'Lima'
+
             self.empresa.guardar_empresa({
                 'ruc' : int(list_empresa[0]['ruc']),
                 'nombre_empresa' : list_empresa[0]['nombre_empresa'],

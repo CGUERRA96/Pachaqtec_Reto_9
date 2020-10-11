@@ -1,10 +1,12 @@
 from classes.persona import Persona
+from controller.productos_controller import Productos_controller
 from helpers.helper import input_data, print_table, pregunta
 from helpers.menu import Menu
 
 class Cajero_controller:
     def __init__(self):
         self.persona = Persona()
+        self.productos_controller = Productos_controller()
         self.salir = False
 
     def menu(self):
@@ -19,9 +21,9 @@ class Cajero_controller:
                 respuesta = Menu(menu).show()
                 
                 if respuesta == 1:
-                    pass
+                    self.productos_controller.listar_productos()
                 elif respuesta == 2:
-                    pass                
+                    self.productos_controller.listar_venta_detalle_agrupador()                
                 else:
                     self.salir = True
                     break

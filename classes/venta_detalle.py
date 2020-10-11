@@ -13,6 +13,9 @@ class Venta_detalle:
     def obtener_ventas_detalles(self, order):
         return self.model.get_all(order)
 
+    def agrupar_ventas_detalles(self, data_venta_detalle, data_cal, order):
+        return self.model.get_group_by(data_venta_detalle, data_cal, order)
+
     def buscar_ventas_detalles(self, data_venta_detalle):
         return self.model.get_by_column(data_venta_detalle)
 

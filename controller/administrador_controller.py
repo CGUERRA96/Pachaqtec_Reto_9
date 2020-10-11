@@ -1,16 +1,18 @@
 from helpers.helper import input_data, print_table, pregunta
 from helpers.menu import Menu
 from classes.venta import Venta
-from classes.producto import Producto
+from classes.producto import Productos
 from classes.venta_detalle import Venta_detalle
 from classes.persona import Persona
+from controller.persona_controller import Persona_controller
 
 class Administrador_controller:
     def __init__(self):
         self.persona = Persona()
-        self.producto = Producto()
+        self.producto = Productos()
         self.venta = Venta()
         self.venta_detalle = Venta_detalle()
+        self.persona_controller = Persona_controller()
         self.salir = False
 
     def menu(self):
@@ -21,11 +23,11 @@ class Administrador_controller:
                     Interfaz Administrador
                 ==============================
                 ''')
-                menu = ['Ver productos en almacen', 'Ver reporte de ventas', "Salir"]
+                menu = ['Mantenimiento Personal', 'Ver reporte de ventas', "Salir"]
                 respuesta = Menu(menu).show()
                 
                 if respuesta == 1:
-                    self.listar_productos()
+                    self.persona_controller.menu()
                 elif respuesta == 2:
                     self.reporte_ventas()             
                 else:

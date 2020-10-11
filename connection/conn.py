@@ -19,6 +19,14 @@ class Conexion:
         self.cursor.execute(query)
         return self.cursor.fetchall()
 
+    def get_group_by(self, data, data_cal, order):
+        list_select_column = []
+        for field_name in data:
+            list_select_column.append(f"{field_name}")
+        query = f'SELECT {" , ".join(list_select_column)} , Sum({data_cal}) FROM {self.table_name} GROUP BY {" , ".join(list_select_column)} ORDER BY {order}'
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
+
     def get_by_id(self, id_object):
         query = f'SELECT * FROM {self.table_name} WHERE {"".join(map(str, id_object.keys()))} = {"".join(map(str, id_object.values()))}'
         self.cursor.execute(query)

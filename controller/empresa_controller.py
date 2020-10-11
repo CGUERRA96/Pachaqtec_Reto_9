@@ -31,6 +31,16 @@ class Empresa_controller:
     def listar_empresa(self):
         print('''
         ===========================
+            Lista de Empresas
+        ===========================
+        ''')
+
+        empresa = self.empresa.obtener_empresas('id_empresa')
+        print(print_table(empresa,['ID', 'RUC', 'Nombre', 'Dirección']))
+
+    def buscar_empresa(self):
+        print('''
+        ===========================
             Datos de la Empresa
         ===========================
         ''')
